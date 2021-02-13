@@ -1,5 +1,10 @@
 # REA-IQ
 
+![Test suite](https://github.com/jankapunkt/real-iq/workflows/Test%20suite/badge.svg)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![GitHub](https://img.shields.io/github/license/jankapunkt/real-iq)
+
+
 The most practical IQ test in the world. Written in vanilla js/html/css.
 
 ## About

@@ -31,7 +31,7 @@ jobs:
     - run: npx standard
 
   linthtml:
-    name: SCSS lint
+    name: HTML lint
     runs-on: ubuntu-latest
     needs: [lintcode]
     steps:
