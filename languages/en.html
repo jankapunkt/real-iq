@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
+    <link rel="preload" href="../custom.css" as="style">
+    <link rel="stylesheet" href="../custom.css">
+
+    <title>The REAL-IQ Test</title>
+</head>
+<body>
+<div class="container mt-5 h-100">
+
+    <!-- TEST INTRO =========================================================
+
+        We use this component to make the user think, there is some real test
+        going on and distract from the fact, the modal will be the test.
+        Therefore we need at least texts that make some kind of sense and
+        introduce some kind of test.
+    -->
+
+    <div id="test-introduction"
+         class="bg-light w-100 p-3 p-md-5 text-center shadow-lg rounded">
+        <h1 class="text-center fw-bolder display-1 w-100 my-2">Welcome to the
+            <span class="text-info">REAL-IQ</span> test!</h1>
+        <div class="w-100 d-flex justify-content-center">
+            <hr class="w-50 text-muted">
+        </div>
+        <p class="mt-2 mb-5">The most practical IQ test in the world.</p>
+
+        <!-- PREFACE OF THE TEST -->
+        <h2 class="text-center text-secondary mt-5">PREFACE</h2>
+        <div class="w-100 d-flex justify-content-center">
+            <hr class="w-25 text-muted">
+        </div>
+
+
+        <div class="px-0 px-md-5">
+            <p class="text-justify">
+                This test is intended to provide a fast, intuitive and practical
+                way to measure the general IQ of a person. While there are many
+                IQ tests out there, claiming to assess general IQ, we believe
+                them to be impractical and too isolated from a real-world
+                perspective.
+                We therefore invented the REAL-IQ test in order to show that IQ.
+            </p>
+
+            <!-- HOW IT WORKS -->
+            <h2 class="text-center text-secondary mt-4">How it works</h2>
+            <div class="w-100 d-flex justify-content-center">
+                <hr class="w-25 text-muted">
+            </div>
+
+            <p class="text-justify">
+                If you are interested in how this test works you are free to
+                continue, it won't affect the outcome of the test. We
+                can assume, that if you already reached this section you are
+                reading careful enough to also read the prompt messages of the
+                test.
+            </p>
+
+            <p class="text-justify">
+                We will prompt you a modal in exactly 3 seconds, so you might
+                not be able to read this passage. We will fake a typical
+                cookie-consent
+                prompt, asking you to either "accept all" or "manage settings".
+                Accepting all leads to a zero score and you can consider
+                yourself
+                ignorant and cognitive mediocre. If you, however manage settings
+                you
+                will be rewarded points for each tracking option you disable.
+                The more you disable (including hidden options), the higher your
+                score.
+            </p>
+
+            <h2 class="text-center text-secondary mt-5">How we score
+                results</h2>
+            <div class="w-100 d-flex justify-content-center">
+                <hr class="w-25 text-muted">
+            </div>
+
+            <p class="text-justify">
+                We neither use a valid instrument, nor do we apply any
+                scientific
+                method to score the results. Every score beyond 0 (which means,
+                the
+                users has "accepted all" tracking) can be considered to reflect
+                some
+                sort of cognitive ability.
+            </p>
+
+            <p class="text-justify">
+                Optio occaecati facere qui ullam adipisci accusantium
+                asperiores. Assumenda ipsa quam ullam corrupti dolores ullam
+                nemo. Minus est numquam aliquid provident aut sit. Sed impedit
+                explicabo soluta sit expedita quo laborum quam. Et ea excepturi
+                ipsum minus omnis quod dolorem et. Omnis eligendi illo quia.
+                Consequatur similique consectetur deserunt tempora molestias et.
+                Molestiae officia sapiente velit velit dolore qui eius aut.
+                Velit et eos mollitia molestiae quia modi vel nulla. Nam aut
+                autem minima non sequi molestiae. Velit excepturi autem
+                similique magni autem rerum incidunt aliquid.
+            </p>
+        </div>
+        <div class="w-100 d-flex justify-content-center">
+            <hr class="w-25 text-muted">
+        </div>
+
+        <div class="d-grid gap-2 mt-4">
+            <button class="btn d-grid btn-lg btn-outline-info p-4">
+                Start the test
+            </button>
+        </div>
+    </div> <!-- end introduction -->
+
+    <!-- TEST RESULTS ==========================================================
+        We hide the results until the modal has been closed and let the js turn
+        the visibility on when the modal has been closed.
+    -->
+
+    <div id="test-results"
+         class="bg-light w-100 p-3 p-md-5 shadow-lg rounded d-none">
+        <h1 class="text-center fw-bolder display-1 w-100 my-2">Your REAL-IQ
+            score is:</h1>
+        <h1 class="text-center fw-bolder display-1 w-100 my-2 text-info p-5 border border-info"
+            id="score-target"></h1>
+
+        <div class="w-100 text-center">
+            <span>The time you spent on the test was</span>
+            <span class="text-center text-info"><span id="time-target"></span>second(s)</span>
+        </div>
+
+        <div id="non-zero-score-message"
+             class="px-0 px-md-5 d-none mt-5 d-flex justify-content-center">
+
+            <div class="col-12 col-lg-6">
+                <h2 class="text-center">Congratulations, you passed the
+                    test!</h2>
+
+                <p class="text-center text-success p-2 border border-success">
+                    You can feel good about your decision!
+                    The test was about your ability to manage your privacy
+                    settings actively and consciously and not being a mindless
+                    zombie that accepts anything to gain instant satisfaction
+                    from online content.
+                </p>
+            </div>
+        </div>
+
+        <!-- zero score message -->
+        <div id="zero-score-message"
+             class="px-0 px-md-5 d-none mt-5 d-flex justify-content-center">
+
+            <div class="col-12 col-lg-6">
+                <h2 class="text-center">Wait, what? Why did I fail?</h2>
+
+                <p class="text-center text-danger p-2 border border-danger">
+                    Face it, you failed the test miserably!
+                    The test was about your ability to manage your privacy
+                    settings actively and consciously and not being a mindless
+                    zombie that accepts anything to gain instant satisfaction
+                    from
+                    online content.
+                </p>
+
+                <p class="text-center my-4">
+                    You didn't read at all and simply "accepted anything" we
+                    could have done with your data. Since you gave an explicit
+                    consent, there would be marginal to zero chances for
+                    enforcing your rights through legal means retrospectively
+                    in case your decision led to severe personal consequences.
+
+                    <strong>This means "game over", because</strong>
+                    "accept anything" could mean among the following:
+                </p>
+
+                <ul class="text-left">
+                    <li>Sell your data to third-party vendors like ad-networks,
+                        banks,
+                        insurance companies, profiling agencies
+                    </li>
+                    <li>Send your data (messages, comments, likes/don't likes)
+                        to authorities
+                    </li>
+                    <li>Track your GPS position and create a movement profile
+                    </li>
+                    <li>Uniquely identify you across other sites via
+                        fingerprinting
+                    </li>
+                    <li>Create a profile of your daily behavior, event if you
+                        are
+                        not actively using this site
+                    </li>
+                    <li>Track you across the web and merge this data with the
+                        data,
+                        collected on other sites
+                    </li>
+                </ul>
+
+
+                <h2 class="text-center">Why should I care?</h2>
+
+                <p class="text-center text-danger p-2 border border-danger my-4">
+                    The consequences of your decision are usually not instantly
+                    but can be severe:
+                </p>
+
+                <ul class="text-left">
+                    <li>
+                        Foreign countries can refuse entry or in worst case
+                        detain you, based on data they <strong>legally</strong>
+                        gathered about you.
+                    </li>
+                    <li>
+                        Health insurances and healthcare providers can refuse
+                        you certain plans and services, based on lifestyle data
+                        they <strong>legally</strong> gathered about you.
+                    </li>
+                    <li>
+                        Banks can reuse certain services like credits or
+                        creating accounts, based on financial data they
+                        <strong>legally</strong> gathered about you.
+                    </li>
+                    <li>
+                        You can become a target of manipulation, because a
+                        mental profile could be created the more data you
+                        <strong>legally</strong>
+                        share by consent. In worst cases this manipulation can
+                        target drastic decisions for life like government
+                        elections or adventurous financial investments.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- what all is tracked -->
+        <div class="all-tracked-message px-0 px-md-5 my-4 d-flex justify-content-center">
+            <div class="col-12 col-lg-6">
+                <h2 class="text-center">What is all tracked by your
+                    decision:</h2>
+                <ul class="list-group" id="tracked-list"></ul>
+            </div>
+        </div>
+
+
+        <!-- where to go from here  -->
+        <div class="all-tracked-message px-0 px-md-5 my-4 d-flex justify-content-center">
+            <div class="col-12 col-lg-6">
+                <h2 class="text-center">Where to go from here?</h2>
+
+                <p class="text-center text-info p-2 border border-info my-4">
+                    Read about online privacy, get informed and start to
+                    implement
+                    active measures, be it just by taking a few seconds to read
+                    and manage your privacy settings on websites. Some of the
+                    following resources might help you with that (we are not
+                    affiliated with any of them and they are not involved in any
+                    part of this test).
+                </p>
+
+                <!-- for now we have just the sources from the wikipedia article
+                    but maybe someone can add some good sources here? -->
+                <ul>
+                    <li>
+                        <a href="https://en.wikipedia.org/wiki/Internet_privacy"
+                           target="_blank">https://en.wikipedia.org/wiki/Internet_privacy</a>
+                    </li>
+                    <li>
+                        <a href="https://www.eff.org/" target="_blank">https://www.eff.org/</a>
+                    </li>
+                    <li>
+                        <a href="https://www.ponemon.org/" target="_blank">https://www.ponemon.org/</a>
+                    </li>
+                    <li>
+                        <a href="https://www.pewresearch.org/topics/privacy-and-safety/"
+                           target="_blank">https://www.pewresearch.org/topics/privacy-and-safety/</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- disclaimer and credits  -->
+        <div class="all-tracked-message px-0 px-md-5 my-4 d d-flex justify-content-center">
+            <div class="col-12 col-lg-6">
+                <h2 class="text-center">Disclaimer and credits</h2>
+
+                <p class="text-center">
+                    This website is intended to raise awareness and not being
+                    harmful in any way. If you feel offended by any part of this
+                    test then you might think about this being a good time to
+                    change
+                    your mind towards a more conscious and aware
+                    online-lifestyle.
+                </p>
+
+                <p class="text-center">
+                    The author does not claim to have invented a scientifically
+                    valid or reliable test instrument and considers this website
+                    rather as a fun way to confront people with their ignorance
+                    towards online privacy.
+                </p>
+
+                <p>This test is published under a free license (AGPL-3) and
+                    available
+                    on <a href="https://github.com/jankapunkt/real-iq"
+                          target="_blank">https://github.com/jankapunkt/real-iq</a>.
+                    Critics and contributions are very welcomed!</p>
+            </div>
+        </div>
+    </div><!-- end test-results -->
+
+    <!-- TEST MODAL =================================
+         The actual test modal
+    -->
+
+    <div class="modal fade" id="testModal" data-bs-backdrop="static"
+         data-bs-keyboard="false" tabindex="-1" aria-labelledby="testModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="testModalLabel">We need your
+                        consent</h5>
+                </div>
+                <div class="modal-body">
+
+                    <!-- nav -->
+                    <ul class="nav nav-tabs nav-fill my-4">
+                        <li class="nav-item">
+                            <a class="nav-link purposes active"
+                               aria-current="page"
+                               data-target="purposes"
+                               href>
+                                Purposes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link vendors" data-target="vendors"
+                               href>Vendors</a>
+                        </li>
+                    </ul>
+
+                    <div class="modal-vendors d-none">
+                        <p>In the real world this app would share your data
+                            with a huge amount of vendors. The following list is
+                            an example of fictional vendors - any matches with
+                            real
+                            companies are not intended and pure coincidence.</p>
+
+
+                        <ul id="vendorList" class="list-group"></ul>
+
+                        <div class="card-body">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="toggleAllVendors" checked="checked">
+                                <label class="form-check-label"
+                                       for="toggleAllVendors">Enable/disable
+                                    all</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PURPOSES -->
+
+                    <div class="modal-purposes">
+                        <p>
+                            The score of this test is generated by data you
+                            enter.
+                            Privacy is a very sensitive topic and very important
+                            to us.
+                            Please take a moment to read this carefully. Reading
+                            this is already half-the score. Finally, you need to
+                            decide, which options you consent or disagree.
+                            You are free to either accept all or disagree with
+                            all.
+                        </p>
+
+                        <h5>Purposes</h5>
+                        <hr class="w-50 text-muted">
+                        <p>
+                            This app will never use any of the existing data,
+                            there
+                            is no server to "submit" the data and all of it is
+                            just
+                            for the purpose of testing, whether you can
+                            carefully
+                            read a cookie consent prompt, or if you simply agree
+                            to
+                            everything vendors throw at you. Simply dig through
+                            this
+                            prompt and deactivate as much as you can to raise
+                            the
+                            score.
+                        </p>
+
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between">
+                            <span>
+                                <span class="badge bg-info">1.</span>
+                            </span>
+                                <span class="p-1">
+                                <p>
+                                    Access/store information on your device, we will actually never do, because it's a test.
+                                </p>
+                            </span>
+                                <span class="text-muted">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input consent-input"
+                                           type="checkbox"
+                                           data-purpose="Read/write data on your device"
+                                           id="consentDataAccess" checked>
+                                    <label class="form-check-label"
+                                           for="consentDataAccess">Consent</label>
+                                </div>
+                            </span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                            <span>
+                                <span class="badge bg-info">2.</span>
+                            </span>
+                                <span class="p-1">
+                               <p> Personalised ads, we actually will never use,
+                                since we believe ad-networks are evil spreaders
+                                of malware.</p>
+                            </span>
+                                <span class="text-muted">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input consent-input"
+                                           data-purpose="Place personalized ads using third party ad-networks"
+                                           type="checkbox" id="consentAds"
+                                           checked>
+                                    <label class="form-check-label"
+                                           for="consentAds">Consent</label>
+                                </div>
+                            </span>
+                            </li>
+                        </ul>
+
+                        <h5 class="mt-4">Legitimate interest</h5>
+                        <hr class="w-50 text-muted">
+
+                        <p>
+                            We found that simply collecting everything without a
+                            clear purpose will result in high legal penalties.
+                            Some
+                            of our smartest people invented a solution for this
+                            problem: legitimate interest. We simply define the
+                            most
+                            basic data we need to make profits and declare them
+                            as
+                            legitimate interest. So even if you deny all consent
+                            you
+                            still have to actively deny legitimate interest.
+                            Most
+                            users are too lazy to do that so
+                        </p>
+
+
+                        <h5 class="mt-4">Special Purposes</h5>
+                        <hr class="w-50 text-muted">
+
+                        <p>
+                            There are circumstances, that require to collect
+                            certain data and they are for good. Most of them are
+                            to
+                            guarantee a stable technical functionality or
+                            prevent fraudulent usage. Unfortunately this often
+                            involves
+                            the use of third-party tools, which involves to
+                            share a
+                            lot of your private data with other vendors, that
+                            have
+                            their own policy.
+                        </p>
+
+                        <p>
+                            In order to gain control on this section, you
+                            actually need to navigate to the <strong>vendors
+                            section</strong>.
+                        </p>
+
+                        <h5 class="mt-4">Special Features</h5>
+                        <hr class="w-50 text-muted">
+
+                        <p>
+                            Beyond default rampage some vendors do with your
+                            data
+                            there are actually even more evil settings allowing
+                            them
+                            to track your behavior in such a distinct way that
+                            after
+                            a few months they might better know about your
+                            habits
+                            than you yourself. Therefore we call them "special"
+                            features.
+                        </p>
+
+                        <ul class="list-group">
+
+                            <!-- geotracking -->
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="flex-fill">Geolocation-based experience</span>
+                                    <span class="text-muted">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input consent-input"
+                                               type="checkbox"
+                                               data-purpose="Track your GPS position"
+                                               id="consentGeotracking" checked>
+                                        <label class="form-check-label"
+                                               for="consentAds">Consent</label>
+                                    </div>
+                                </span>
+                                    <span>
+                                    <a data-bs-toggle="collapse"
+                                       class="text-decoration-none text-dark display-6"
+                                       style="display: contents;"
+                                       href="#collapseGeotracking" role="button"
+                                       aria-expanded="false"
+                                       aria-controls="collapseGeotracking">
+                                   &#x2304;
+                                </a>
+                                </span>
+                                </div>
+
+                                <div class="collapse" id="collapseGeotracking">
+                                    <div class="card card-body border-0">
+                                        A nicer term for "geotracking".
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- fingerprinting -->
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="flex-fill">Device analytics</span>
+                                    <span class="text-muted">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input consent-input"
+                                               type="checkbox"
+                                               data-purpose="Create a unique fingerprint for your device' browser"
+                                               id="consentFingerprinting"
+                                               checked>
+                                        <label class="form-check-label"
+                                               for="consentAds">Consent</label>
+                                    </div>
+                                    </span>
+                                    <span>
+                                    <a data-bs-toggle="collapse"
+                                       class="text-decoration-none text-dark display-6"
+                                       style="display: contents;"
+                                       href="#collapseFingerprinting"
+                                       role="button"
+                                       aria-expanded="false"
+                                       aria-controls="collapseFingerprinting">
+                                   &#x2304;
+                                </a>
+                                </span>
+                                </div>
+
+                                <div class="collapse"
+                                     id="collapseFingerprinting">
+                                    <div class="card card-body border-0">
+                                        A nicer term for "fingerprinting".
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button"
+                            class="finish-btn btn btn-outline-secondary"
+                            data-target="save">
+                        Save settings
+                    </button>
+                    <button type="button"
+                            class="finish-btn btn btn-success px-5"
+                            data-target="accept">Accept all
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div><!-- end test-results -->
+</div>
+
+<!-- ======================= TEST LOGIC =================================-->
+
+<script src="../RealIQ.js"></script>
+
+<!--
+Bootstrap Bundle with Popper
+-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+</body>
+</html>
