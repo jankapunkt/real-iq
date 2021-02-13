@@ -1,4 +1,4 @@
-# REA-IQ
+# REAL-IQ
 
 ![Test suite](https://github.com/jankapunkt/real-iq/workflows/Test%20suite/badge.svg)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
@@ -35,5 +35,4 @@ Contributions are very welcomed, especially for
 
 ## License
 
-This is AGPL, see the [LICENSE file](./LICENSE)
-
+All code is is AGPL, see the [LICENSE file](./LICENSE)
