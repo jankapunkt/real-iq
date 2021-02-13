@@ -1,7 +1,7 @@
 body {
     height: 100vh;
     background: #0080ff;
-    background-image: url("bg-1.png"), url("bg-2.png");
+    background-image: url("lib/bg-1.png"), url("lib/bg-2.png");
     background-repeat: repeat-x, repeat;
 }
 
